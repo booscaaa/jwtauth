@@ -41,7 +41,7 @@ To run this project in the development mode, you'll need to have a basic environ
 
 Config two tables into your database exactly like this!
 
-<img src="https://github/booscaaa/jwt-auth/docs/jwt.png"  width="100%" />
+<img src="https://raw.githubusercontent.com/booscaaa/jwt-auth/master/docs/jwt.png"  width="50%" />
 
 
 ```bash
