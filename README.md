@@ -78,8 +78,6 @@ $ go run main.go
 - API = http://YOUR_MACHINE_IP:8080
 
 <br>
-<br>
-<br>
 
 ## Libs to build the application
 
@@ -88,6 +86,11 @@ $ go run main.go
 - [Gorila Mux](github.com/gorilla/mux) - Library for config routes
 - [Env](github.com/joho/godotenv) - To get .env file
 - [PQ](github.com/lib/pq) - To get access to postgres database
+- [Map struct](github.com/mitchellh/mapstructure) - To convert jwt claims to structs
+- [Crypto](golang.org/x/crypto) - To get a BCrypt hash to manege the token
+
+<br>
+<br>
 
 You can send how many PR's do you want, I'll be glad to analyse and accept them! And if you have any question about the project...
 
