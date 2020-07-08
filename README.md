@@ -98,7 +98,7 @@ func Refresh(writer http.ResponseWriter, r *http.Request) {
 	if r.Method == "OPTIONS" {
 		writer.WriteHeader(http.StatusOK)
 	} else {
-		bearToken := r.Header.Get("Authorization")
+		bearToken := r.Header.Get("Authorization")  // this bear token must be 4 params -- Bearer <token> <refreshCryptToken> <typeToken>
 		SessionRefresh(bearToken, writer)
 	}
 }
@@ -108,7 +108,7 @@ func Refresh(writer http.ResponseWriter, r *http.Request) {
 Other methods in your API call this function before any function like this
 
 ```golang
-bearToken := r.Header.Get("Authorization")
+bearToken := r.Header.Get("Authorization") // bear token must be 2 params -- Bearer <token>
 if isAuth, access, := VerifyToken(bearToken); isAuth {
     // your implementation methods
 } else {
