@@ -45,7 +45,7 @@ func ExtractToken(r *http.Request) string {
 func CreateToken(tokenAuth TokenAuth, hash string) Auth {
 	token := jwt.NewWithClaims(jwt.GetSigningMethod("HS256"), &tokenAuth)
 
-	tokenstring, err := token.SignedString([]byte("!ec@ll--!!ec-al-l!-)!"))
+	tokenstring, err := token.SignedString([]byte("hashseguro"))
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -65,7 +65,7 @@ func VerifyToken(w http.ResponseWriter, r *http.Request) (bool, Access) {
 		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
 			return nil, fmt.Errorf("Unexpected signing method: %v", token.Header["alg"])
 		}
-		return []byte("!ec@ll--!!ec-al-l!-)!"), nil
+		return []byte("hashseguro"), nil //crie em uma variavel de ambiente
 	})
 
 	if err != nil {
