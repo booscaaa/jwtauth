@@ -5,6 +5,8 @@ import (
 	"net/http"
 
 	. "api/middleware"
+
+	. "github.com/booscaaa/jwt-auth-golang-example"
 )
 
 //Create .

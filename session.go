@@ -1,4 +1,4 @@
-package session
+package jwtauth
 
 import (
 	"database/sql"
@@ -8,9 +8,6 @@ import (
 	"os"
 	"strings"
 	"time"
-
-	. "api/factory"
-	. "api/middleware"
 
 	"golang.org/x/crypto/bcrypt"
 )
@@ -24,7 +21,7 @@ type Session struct {
 }
 
 //SessionCreate .
-func SessionCreate(a Access, w http.ResponseWriter) {
+func SessionCreate(access Access, writer http.ResponseWriter) {
 	session := Session{
 		Hash:   "",
 		Access: Access{},
@@ -41,14 +38,14 @@ func SessionCreate(a Access, w http.ResponseWriter) {
 				where login = $1 and 
 				password = crypt($2, password) 
 				LIMIT 1;	`,
-			a.Login,
-			a.Password,
+			access.Login,
+			access.Password,
 		)
 		e, isEr := CheckErr(err)
 
 		if isEr {
-			w.WriteHeader(http.StatusInternalServerError)
-			w.Write(e.ReturnError())
+			writer.WriteHeader(http.StatusInternalServerError)
+			writer.Write(e.ReturnError())
 			return
 		}
 
@@ -62,8 +59,8 @@ func SessionCreate(a Access, w http.ResponseWriter) {
 			e, isEr := CheckErr(err)
 
 			if isEr {
-				w.WriteHeader(http.StatusInternalServerError)
-				w.Write(e.ReturnError())
+				writer.WriteHeader(http.StatusInternalServerError)
+				writer.Write(e.ReturnError())
 				return
 			}
 		}
@@ -71,8 +68,8 @@ func SessionCreate(a Access, w http.ResponseWriter) {
 
 	// caso não tenha retorna acesso negado
 	if session.Access.ID == 0 {
-		w.WriteHeader(http.StatusUnauthorized)
-		w.Write(ReturnMessage("Acesso negado!"))
+		writer.WriteHeader(http.StatusUnauthorized)
+		writer.Write(ReturnMessage("Acesso negado!"))
 		return
 	}
 
@@ -96,8 +93,8 @@ func SessionCreate(a Access, w http.ResponseWriter) {
 
 		//se tem e está revogado retorna acesso negado
 		if session.IsRevoked {
-			w.WriteHeader(http.StatusUnauthorized)
-			w.Write(ReturnMessage("Acesso negado!"))
+			writer.WriteHeader(http.StatusUnauthorized)
+			writer.Write(ReturnMessage("Acesso negado!"))
 			return
 		}
 	}
@@ -109,8 +106,8 @@ func SessionCreate(a Access, w http.ResponseWriter) {
 
 		if isEr {
 			tx.Rollback()
-			w.WriteHeader(http.StatusInternalServerError)
-			w.Write(e.ReturnError())
+			writer.WriteHeader(http.StatusInternalServerError)
+			writer.Write(e.ReturnError())
 			return
 		}
 
@@ -124,8 +121,8 @@ func SessionCreate(a Access, w http.ResponseWriter) {
 
 				if isEr {
 					tx.Rollback()
-					w.WriteHeader(http.StatusInternalServerError)
-					w.Write(e.ReturnError())
+					writer.WriteHeader(http.StatusInternalServerError)
+					writer.Write(e.ReturnError())
 					return
 				}
 
@@ -139,8 +136,8 @@ func SessionCreate(a Access, w http.ResponseWriter) {
 
 				if isEr {
 					tx.Rollback()
-					w.WriteHeader(http.StatusInternalServerError)
-					w.Write(e.ReturnError())
+					writer.WriteHeader(http.StatusInternalServerError)
+					writer.Write(e.ReturnError())
 					return
 				}
 			} else { // se não tiver cria um novo
@@ -154,8 +151,8 @@ func SessionCreate(a Access, w http.ResponseWriter) {
 
 				if isEr {
 					tx.Rollback()
-					w.WriteHeader(http.StatusInternalServerError)
-					w.Write(e.ReturnError())
+					writer.WriteHeader(http.StatusInternalServerError)
+					writer.Write(e.ReturnError())
 					return
 				}
 
@@ -171,8 +168,8 @@ func SessionCreate(a Access, w http.ResponseWriter) {
 
 				if isEr {
 					tx.Rollback()
-					w.WriteHeader(http.StatusInternalServerError)
-					w.Write(e.ReturnError())
+					writer.WriteHeader(http.StatusInternalServerError)
+					writer.Write(e.ReturnError())
 					return
 				}
 			}
@@ -186,19 +183,19 @@ func SessionCreate(a Access, w http.ResponseWriter) {
 	e, isEr := CheckErr(err)
 
 	if isEr {
-		w.WriteHeader(http.StatusInternalServerError)
-		w.Write(e.ReturnError())
+		writer.WriteHeader(http.StatusInternalServerError)
+		writer.Write(e.ReturnError())
 		return
 	}
 
-	w.WriteHeader(http.StatusOK)
-	w.Write(payload)
+	writer.WriteHeader(http.StatusOK)
+	writer.Write(payload)
 
 	return
 }
 
 //SessionRefresh .
-func SessionRefresh(bearToken string, w http.ResponseWriter) {
+func SessionRefresh(bearToken string, writer http.ResponseWriter) {
 	strArr := strings.Split(bearToken, " ")
 	// é necessario 4 parametros no header de authorization
 	if len(strArr) == 4 {
@@ -233,8 +230,8 @@ func SessionRefresh(bearToken string, w http.ResponseWriter) {
 
 			// caso não retorna acesso negado
 			if session.Access.ID == 0 {
-				w.WriteHeader(http.StatusUnauthorized)
-				w.Write(ReturnMessage("Acesso negado!"))
+				writer.WriteHeader(http.StatusUnauthorized)
+				writer.Write(ReturnMessage("Acesso negado!"))
 				return
 			}
 		}
@@ -267,8 +264,8 @@ func SessionRefresh(bearToken string, w http.ResponseWriter) {
 
 			if isEr {
 				tx.Rollback()
-				w.WriteHeader(http.StatusInternalServerError)
-				w.Write(e.ReturnError())
+				writer.WriteHeader(http.StatusInternalServerError)
+				writer.Write(e.ReturnError())
 				return
 			}
 
@@ -279,8 +276,8 @@ func SessionRefresh(bearToken string, w http.ResponseWriter) {
 
 			if isEr {
 				tx.Rollback()
-				w.WriteHeader(http.StatusInternalServerError)
-				w.Write(e.ReturnError())
+				writer.WriteHeader(http.StatusInternalServerError)
+				writer.Write(e.ReturnError())
 				return
 			}
 
@@ -292,8 +289,8 @@ func SessionRefresh(bearToken string, w http.ResponseWriter) {
 
 			if isEr {
 				tx.Rollback()
-				w.WriteHeader(http.StatusInternalServerError)
-				w.Write(e.ReturnError())
+				writer.WriteHeader(http.StatusInternalServerError)
+				writer.Write(e.ReturnError())
 				return
 			}
 
@@ -304,17 +301,17 @@ func SessionRefresh(bearToken string, w http.ResponseWriter) {
 		e, isEr := CheckErr(err)
 
 		if isEr {
-			w.WriteHeader(http.StatusInternalServerError)
-			w.Write(e.ReturnError())
+			writer.WriteHeader(http.StatusInternalServerError)
+			writer.Write(e.ReturnError())
 			return
 		}
 
-		w.WriteHeader(http.StatusOK)
-		w.Write(payload)
+		writer.WriteHeader(http.StatusOK)
+		writer.Write(payload)
 		return
 	}
 
-	w.WriteHeader(http.StatusUnauthorized)
-	w.Write(ReturnMessage("Acesso negado!"))
+	writer.WriteHeader(http.StatusUnauthorized)
+	writer.Write(ReturnMessage("Acesso negado!"))
 	return
 }
