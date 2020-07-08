@@ -4,8 +4,6 @@ import (
 	"encoding/json"
 	"net/http"
 
-	// . "api/middleware"
-
 	. "github.com/booscaaa/jwt-auth"
 )
 

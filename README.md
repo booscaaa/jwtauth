@@ -105,7 +105,7 @@ func Refresh(writer http.ResponseWriter, r *http.Request) {
 ```
 <br>
 <br>
-In other methods in your API call this function before whatever function like this
+Other methods in your API call this function before any function like this
 
 ```golang
 bearToken := r.Header.Get("Authorization")
