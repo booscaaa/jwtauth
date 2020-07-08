@@ -71,7 +71,7 @@ func VerifyToken(bearToken string) (bool, Access) {
 
 	access := Access{}
 
-	token, err := jwt.Parse(bearToken, func(token *jwt.Token) (interface{}, error) {
+	token, err := jwt.Parse(ExtractToken(bearToken), func(token *jwt.Token) (interface{}, error) {
 		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
 			return nil, fmt.Errorf("Unexpected signing method: %v", token.Header["alg"])
 		}
