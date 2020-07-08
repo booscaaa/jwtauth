@@ -84,13 +84,3 @@ func VerifyToken(w http.ResponseWriter, r *http.Request) (bool, Access) {
 
 	return true, access
 }
-
-//SetOrigins .
-func SetOrigins(w http.ResponseWriter) http.ResponseWriter {
-	w.Header().Set("Access-Control-Allow-Methods", "POST, OPTIONS, DELETE, PUT")
-	w.Header().Set("Content-Type", "application/json")
-	w.Header().Set("Access-Control-Allow-Origin", "*")
-	w.Header().Set("Access-Control-Allow-Headers", "Content-Type, Authorization")
-
-	return w
-}
