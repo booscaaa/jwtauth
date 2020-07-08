@@ -52,6 +52,13 @@ DB_PASSWORD=
 DB_NAME=
 HASH_CRYPT=    #secret hash for JWT
 ```
+Import lib
+
+```golang
+import (
+    . "github"
+)
+```
 
 Call SessionCreate to create a valid session
 ```golang
