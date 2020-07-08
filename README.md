@@ -43,11 +43,14 @@ Config two tables into your database exactly like this!
 
 <img src="https://raw.githubusercontent.com/booscaaa/jwt-auth/master/docs/jwt.png"  width="50%" />
 
+<br>
+<br>
 
 ```bash
 $ go get github.com/booscaaa/jwt-auth
 ```
-
+<br>
+<br>
 Config the file .env with .env.example
 
 ```env
@@ -57,6 +60,7 @@ DB_PASSWORD=
 DB_NAME=
 HASH_CRYPT=    #secret hash for JWT
 ```
+<br><br>
 Import lib
 
 ```golang
@@ -64,8 +68,10 @@ import (
     . "github.com/booscaaa/jwt-auth"
 )
 ```
-
+<br>
+<br>
 Call SessionCreate to create a valid session
+
 ```golang
 var access Access
 if err := json.NewDecoder(r.Body).Decode(&access); err != nil {
@@ -76,12 +82,26 @@ if err := json.NewDecoder(r.Body).Decode(&access); err != nil {
     SessionCreate(access, writer)
 }
 ```
+<br>
+<br>
 
-
-- Call SessionRefresh to create new valid session
+Call SessionRefresh to create new valid session
 ```golang
 bearToken := r.Header.Get("Authorization")
 SessionRefresh(bearToken, w)
+```
+<br>
+<br>
+In other methods in your API call this function before whatever function like this
+
+```golang
+bearToken := r.Header.Get("Authorization")
+if isAuth, access, := VerifyToken(bearToken); isAuth {
+    // your implementation methods
+} else {
+    w.WriteHeader(http.StatusUnauthorized)
+    w.Write([]byte("401 - Unauthorized!"))
+}
 ```
 
 <br>

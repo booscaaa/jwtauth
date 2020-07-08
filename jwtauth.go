@@ -43,6 +43,11 @@ func ExtractToken(bearToken string) string {
 
 //CreateToken .
 func CreateToken(tokenAuth TokenAuth, hash string) Auth {
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal("Error loading .env file")
+	}
+
 	token := jwt.NewWithClaims(jwt.GetSigningMethod("HS256"), &tokenAuth)
 
 	tokenstring, err := token.SignedString([]byte(os.Getenv("HASH_CRYPT")))
