@@ -58,6 +58,7 @@ DB_HOST=
 DB_USER=
 DB_PASSWORD=
 DB_NAME=
+BCRYPT_HASH_SECRET=    #secret hash for reniew token
 HASH_CRYPT=    #secret hash for JWT
 ```
 <br><br>
@@ -73,13 +74,19 @@ import (
 Call SessionCreate to create a valid session
 
 ```golang
-var access Access
-if err := json.NewDecoder(r.Body).Decode(&access); err != nil {
-    w.WriteHeader(http.StatusInternalServerError)
-    w.Write([]byte("500 - Something bad happened!"))
-} else {
-    defer r.Body.Close()
-    SessionCreate(access, writer)
+func Create(writer http.ResponseWriter, r *http.Request) {
+	if r.Method == "OPTIONS" {
+		writer.WriteHeader(http.StatusOK)
+	} else {
+		var access Access
+		if err := json.NewDecoder(r.Body).Decode(&access); err != nil {
+			writer.WriteHeader(http.StatusInternalServerError)
+			writer.Write([]byte("500 - Something bad happened!"))
+		} else {
+			defer r.Body.Close()
+			SessionCreate(access, writer)
+		}
+	}
 }
 ```
 <br>
@@ -87,8 +94,14 @@ if err := json.NewDecoder(r.Body).Decode(&access); err != nil {
 
 Call SessionRefresh to create new valid session
 ```golang
-bearToken := r.Header.Get("Authorization")
-SessionRefresh(bearToken, w)
+func Refresh(writer http.ResponseWriter, r *http.Request) {
+	if r.Method == "OPTIONS" {
+		writer.WriteHeader(http.StatusOK)
+	} else {
+		bearToken := r.Header.Get("Authorization")
+		SessionRefresh(bearToken, writer)
+	}
+}
 ```
 <br>
 <br>

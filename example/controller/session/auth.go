@@ -44,20 +44,5 @@ func Refresh(w http.ResponseWriter, r *http.Request) {
 	} else {
 		bearToken := r.Header.Get("Authorization")
 		SessionRefresh(bearToken, w)
-
-		// if isAuth, _ := VerifyToken(w, r); isAuth {
-		// var colaborador Colaborador
-		// if err := json.NewDecoder(r.Body).Decode(&colaborador); err != nil {
-		// 	log.Println("Nenhum parametro enviado")
-		// 	w.WriteHeader(http.StatusInternalServerError)
-		// 	w.Write([]byte("500 - Something bad happened!"))
-		// } else {
-		// 	defer r.Body.Close()
-		// 	response := colaborador.Get()
-		// 	w.Write(response)
-		// }
-
-		// w.Write([]byte("asdasd"))
-		// }
 	}
 }
