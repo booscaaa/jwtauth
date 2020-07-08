@@ -39,6 +39,11 @@ To run this project in the development mode, you'll need to have a basic environ
 
 **Using lib**
 
+Config two tables into your database exactly like this!
+
+<img src="https://github/booscaaa/jwt-auth/docs/jwt.png"  width="100%" />
+
+
 ```bash
 $ go get github.com/booscaaa/jwt-auth
 ```
@@ -56,7 +61,7 @@ Import lib
 
 ```golang
 import (
-    . "github"
+    . "github.com/booscaaa/jwt-auth"
 )
 ```
 
