@@ -1,4 +1,4 @@
-module jwt-auth
+module github.com/booscaaa/jwt-auth-golang-example
 
 go 1.13
 

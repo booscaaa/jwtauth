@@ -10,4 +10,5 @@ require (
 	github.com/lib/pq v1.7.0
 	github.com/mitchellh/mapstructure v1.3.2
 	golang.org/x/crypto v0.0.0-20200622213623-75b288015ac9
+	github.com/booscaaa/jwt-auth-golang-example v0.0.0-20200708165844-74c93da2939f
 )
