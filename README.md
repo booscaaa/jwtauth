@@ -1,15 +1,12 @@
-# JWT Auth Golang
-
-<!-- <img src="https://raw.githubusercontent.com/booscaaa/midow/master/screenshots/midow.png"  width="100%" /> -->
+# JWT Auth Golang for Postgres
 
 
 ## About this Project
 
 The idea of the App is:
 
-_"Show an example of how to manage access to an api with golang and jwt"._
+_"An library to auth with jwt in golang with postgres"._
 
-<br>
 
 ## Why?
 
@@ -20,16 +17,14 @@ Email-me: boscardinvinicius@gmail.com
 Connect with me at [LinkedIn](https://www.linkedin.com/in/booscaaa/).
 
 
-<br>
 
 ## Functionalities
 
-- Verify auth and generete a token object to manege access.
+- Verify auth and generete a token object with 40 seconds expiration  to manege access.
 
 - Get a refreshed token.
 
 
-<br>
 
 ## Getting Started
 
@@ -39,57 +34,54 @@ To run this project in the development mode, you'll need to have a basic environ
 - A Golang SDK, that can be found [here](https://golang.org/dl/).
 
 
-<br>
-
 ### Installing
 
 
-**Cloning the Repository**
+**Using lib**
 
-```
-$ git clone https://github.com/booscaaa/jwt-auth-golang-example
-
-$ cd jwt-auth-golang-example
-```
-<br>
-
-**Installing dependencies**
-
-```
-$ go mod download
-```
-<br>
-
-### Running
-- Configure o arquivo .env com os dados necessarios encontrados no arquivo .env.example
-
-- Rode:
-
-```
-$ go run main.go
+```bash
+$ go get github.com/booscaaa/jwt-auth
 ```
 
-<br>
-<br>
-<br>
+Config the file .env with .env.example
 
-### URLs to show the aplications
+```env
+DB_HOST=
+DB_USER=
+DB_PASSWORD=
+DB_NAME=
+HASH_CRYPT=    #secret hash for JWT
+```
 
-- API = http://YOUR_MACHINE_IP:8080
+Call SessionCreate to create a valid session
+```golang
+var access Access
+if err := json.NewDecoder(r.Body).Decode(&access); err != nil {
+    w.WriteHeader(http.StatusInternalServerError)
+    w.Write([]byte("500 - Something bad happened!"))
+} else {
+    defer r.Body.Close()
+    SessionCreate(access, writer)
+}
+```
+
+
+- Call SessionRefresh to create new valid session
+```golang
+bearToken := r.Header.Get("Authorization")
+SessionRefresh(bearToken, w)
+```
 
 <br>
 
 ## Libs to build the application
 
 - [JWT](github.com/dgrijalva/jwt-go) - Library for golang jwt
-- [Gorila Handlers](github.com/gorilla/handlers) - Library for config compress files
-- [Gorila Mux](github.com/gorilla/mux) - Library for config routes
 - [Env](github.com/joho/godotenv) - To get .env file
 - [PQ](github.com/lib/pq) - To get access to postgres database
 - [Map struct](github.com/mitchellh/mapstructure) - To convert jwt claims to structs
 - [Crypto](golang.org/x/crypto) - To get a BCrypt hash to manege the token
 
-<br>
 <br>
 
 You can send how many PR's do you want, I'll be glad to analyse and accept them! And if you have any question about the project...
@@ -102,4 +94,4 @@ Thank you!
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/booscaaa/jwt-auth-golang-example/blob/master/LICENSE) file for details
+This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/booscaaa/jwt-auth/blob/master/LICENSE) file for details

@@ -1,3 +1,5 @@
+github.com/booscaaa/jwt-auth v1.0.0 h1:m7maIRP+mnCrwyVmDeFlUyzVSxZA/CFjG7s7bDlggP8=
+github.com/booscaaa/jwt-auth v1.0.0/go.mod h1:tjYD9RYtdA4/el1T/gTB5K1lnuy+3vHLe/5DkWir08A=
 github.com/booscaaa/jwt-auth-golang-example v0.0.0-20200708170427-bed6f5b81dd6 h1:Wgix1nqMaw1boThnHwtrbQM7Ogw0mQ4ZvvfDQYv9oOs=
 github.com/booscaaa/jwt-auth-golang-example v0.0.0-20200708170427-bed6f5b81dd6/go.mod h1:u3cbOeH4AthkxtW5O6PVa5+Xzckdoo8KeV+PtqUNZpQ=
 github.com/dgrijalva/jwt-go v3.2.0+incompatible h1:7qlOGliEKZXTDg6OTjfoBKDXWrumCAMpl/TFQ4/5kLM=
