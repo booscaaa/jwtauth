@@ -34,7 +34,7 @@ func SessionCreate(access Access, writer http.ResponseWriter) {
 	// verifica se existe acesso para os dados digitados
 	{
 		rows, err := session.DB.Query(
-			`	SELECT * from access 
+			`	SELECT id, login, password, email from access 
 				where login = $1 and 
 				password = crypt($2, password) 
 				LIMIT 1;	`,
@@ -239,7 +239,7 @@ func SessionRefresh(bearToken string, writer http.ResponseWriter) {
 		// se estiver tudo ok busca todos os dados do acesso
 		{
 			session.DB.QueryRow(
-				`SELECT * from access where id = $1 LIMIT 1;`,
+				`SELECT id, login, password, email from access where id = $1 LIMIT 1;`,
 				session.Access.ID,
 			).Scan(
 				&session.Access.ID,
