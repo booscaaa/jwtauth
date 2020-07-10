@@ -1,4 +1,4 @@
-module github.com/booscaaa/jwt-auth
+module github.com/booscaaa/jwtauth
 
 go 1.13
 

@@ -41,13 +41,13 @@ To run this project in the development mode, you'll need to have a basic environ
 
 Config two tables into your database exactly like this!
 
-<img src="https://raw.githubusercontent.com/booscaaa/jwt-auth/master/docs/jwt.png"  width="50%" />
+<img src="https://raw.githubusercontent.com/booscaaa/jwtauth/master/docs/jwt.png"  width="50%" />
 
 <br>
 <br>
 
 ```bash
-$ go get github.com/booscaaa/jwt-auth
+$ go get github.com/booscaaa/jwtauth
 ```
 <br>
 <br>
@@ -66,7 +66,7 @@ Import lib
 
 ```golang
 import (
-    . "github.com/booscaaa/jwt-auth"
+    . "github.com/booscaaa/jwtauth"
 )
 ```
 <br>
@@ -125,7 +125,7 @@ func auth(next http.Handler) http.Handler {
 ```
 <br>
 <br>
-To get the access struct into your controller method just to it:
+To get the access struct into your controller method just do it:
 
 ```golang
 func YourMethodController(response http.ResponseWriter, request *http.Request) {
@@ -154,4 +154,4 @@ Thank you!
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/booscaaa/jwt-auth/blob/master/LICENSE) file for details
+This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/booscaaa/jwtauth/blob/master/LICENSE) file for details

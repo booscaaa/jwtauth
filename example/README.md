@@ -47,9 +47,9 @@ To run this project in the development mode, you'll need to have a basic environ
 **Cloning the Repository**
 
 ```
-$ git clone https://github.com/booscaaa/jwt-auth-golang-example
+$ git clone https://github.com/booscaaa/jwtauth
 
-$ cd jwt-auth-golang-example
+$ cd jwtauth/example
 ```
 <br>
 
@@ -102,4 +102,4 @@ Thank you!
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/booscaaa/jwt-auth-golang-example/blob/master/LICENSE) file for details
+This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/booscaaa/jwtauth/blob/master/LICENSE) file for details

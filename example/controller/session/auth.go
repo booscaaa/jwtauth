@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"net/http"
 
-	. "github.com/booscaaa/jwt-auth"
+	"github.com/booscaaa/jwtauth"
 )
 
 //SetOrigins .
@@ -29,7 +29,7 @@ func Create(w http.ResponseWriter, r *http.Request) {
 			w.Write([]byte("500 - Something bad happened!"))
 		} else {
 			defer r.Body.Close()
-			SessionCreate(access, w)
+			jwtauth.SessionCreate(access, w)
 		}
 	}
 }
@@ -41,6 +41,6 @@ func Refresh(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusOK)
 	} else {
 		bearToken := r.Header.Get("Authorization")
-		SessionRefresh(bearToken, w)
+		jwtauth.SessionRefresh(bearToken, w)
 	}
 }
