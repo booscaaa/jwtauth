@@ -5,7 +5,7 @@
 
 The idea of the App is:
 
-_"An library to auth with jwt in golang with postgres"._
+_"A library to auth with jwt in golang with postgres"._
 
 
 ## Why?
@@ -20,7 +20,7 @@ Connect with me at [LinkedIn](https://www.linkedin.com/in/booscaaa/).
 
 ## Functionalities
 
-- Verify auth and generete a token object with 40 seconds expiration  to manege access.
+- Verify auth and generete a token object with 40 seconds expiration  to manage access.
 
 - Get a refreshed token.
 
@@ -140,7 +140,7 @@ func YourMethodController(response http.ResponseWriter, request *http.Request) {
 - [Env](github.com/joho/godotenv) - To get .env file
 - [PQ](github.com/lib/pq) - To get access to postgres database
 - [Map struct](github.com/mitchellh/mapstructure) - To convert jwt claims to structs
-- [Crypto](golang.org/x/crypto) - To get a BCrypt hash to manege the token
+- [Crypto](golang.org/x/crypto) - To get a BCrypt hash to manage the token
 
 <br>
 
