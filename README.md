@@ -113,7 +113,7 @@ func auth(next http.Handler) http.Handler {
 		bearToken := request.Header.Get("Authorization") // bear token must be 2 params -- Bearer <token>
 		if isAuth, access := VerifyToken(bearToken); isAuth {
 			fmt.Println(access.Login)
-			request = SetContextData(request, &access) // passing access struct to re request context to get it into controller method
+			request = SetContextData(request, &access) // passing access struct to the request context to get it into controller method
 			next.ServeHTTP(response, request)
 		} else {
 			response.WriteHeader(http.StatusUnauthorized)
