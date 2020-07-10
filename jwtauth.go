@@ -1,8 +1,10 @@
 package jwtauth
 
 import (
+	"context"
 	"fmt"
 	"log"
+	"net/http"
 	"os"
 	"strings"
 
@@ -18,7 +20,7 @@ type Auth struct {
 	Type    string `json:"type"`
 }
 
-//User .
+//Access .
 type Access struct {
 	ID       int64  `json:"id"`
 	Login    string `json:"login"`
@@ -83,10 +85,22 @@ func VerifyToken(bearToken string) (bool, Access) {
 	}
 
 	if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
-		mapstructure.Decode(claims["user"], &access)
+		mapstructure.Decode(claims["access"], &access)
 	} else {
 		return false, access
 	}
 
 	return true, access
+}
+
+func SetContextData(r *http.Request, d *Access) (ro *http.Request) {
+	ctx := r.Context()
+	ctx = context.WithValue(ctx, 1, d)
+	ro = r.WithContext(ctx)
+	return
+}
+
+func GetContextData(r *http.Request) (d Access) {
+	d = *r.Context().Value(1).(*Access)
+	return
 }
