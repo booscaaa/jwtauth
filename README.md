@@ -105,18 +105,33 @@ func Refresh(writer http.ResponseWriter, r *http.Request) {
 ```
 <br>
 <br>
-Other methods in your API call this function before any function like this
+Then create a middleware to manage the auth token in your application
 
 ```golang
-bearToken := r.Header.Get("Authorization") // bear token must be 2 params -- Bearer <token>
-if isAuth, access, := VerifyToken(bearToken); isAuth {
-    // your implementation methods
-} else {
-    w.WriteHeader(http.StatusUnauthorized)
-    w.Write([]byte("401 - Unauthorized!"))
+func auth(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(response http.ResponseWriter, request *http.Request) {
+		bearToken := request.Header.Get("Authorization") // bear token must be 2 params -- Bearer <token>
+		if isAuth, access := VerifyToken(bearToken); isAuth {
+			fmt.Println(access.Login)
+			request = SetContextData(request, &access) // passing access struct to re request context to get it into controller method
+			next.ServeHTTP(response, request)
+		} else {
+			response.WriteHeader(http.StatusUnauthorized)
+			response.Write(ReturnMessage("Acesso negado"))
+		}
+	})
+}
+
+```
+<br>
+<br>
+To get the access struct into your controller method just to it:
+
+```golang
+func YourMethodController(response http.ResponseWriter, request *http.Request) {
+	a := GetContextData(request)
 }
 ```
-
 <br>
 
 ## Libs to build the application
