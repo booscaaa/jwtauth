@@ -66,7 +66,7 @@ Import lib
 
 ```golang
 import (
-    . "github.com/booscaaa/jwtauth"
+    "github.com/booscaaa/jwtauth"
 )
 ```
 <br>
@@ -78,13 +78,13 @@ func Create(writer http.ResponseWriter, r *http.Request) {
 	if r.Method == "OPTIONS" {
 		writer.WriteHeader(http.StatusOK)
 	} else {
-		var access Access
-		if err := json.NewDecoder(r.Body).Decode(&access); err != nil {
-			writer.WriteHeader(http.StatusInternalServerError)
-			writer.Write([]byte("500 - Something bad happened!"))
-		} else {
-			defer r.Body.Close()
-			SessionCreate(access, writer)
+		var access jwtauth.Access                                             // use this
+		if err := json.NewDecoder(r.Body).Decode(&access); err != nil {       // use this
+			writer.WriteHeader(http.StatusInternalServerError)                // use this
+			writer.Write([]byte("500 - Something bad happened!"))             // use this 
+		} else { 
+			defer r.Body.Close()                                           
+			jwtauth.SessionCreate(access, writer)                             // use this
 		}
 	}
 }
@@ -99,7 +99,7 @@ func Refresh(writer http.ResponseWriter, r *http.Request) {
 		writer.WriteHeader(http.StatusOK)
 	} else {
 		bearToken := r.Header.Get("Authorization")  // this bear token must be 4 params -- Bearer <token> <refreshCryptToken> <typeToken>
-		SessionRefresh(bearToken, writer)
+		jwtAuth.SessionRefresh(bearToken, writer)                             // use this
 	}
 }
 ```
@@ -111,13 +111,13 @@ Then create a middleware to manage the auth token in your application
 func auth(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(response http.ResponseWriter, request *http.Request) {
 		bearToken := request.Header.Get("Authorization") // bear token must be 2 params -- Bearer <token>
-		if isAuth, access := VerifyToken(bearToken); isAuth {
+		if isAuth, access := jwtAuth.VerifyToken(bearToken); isAuth {
 			fmt.Println(access.Login)
-			request = SetContextData(request, &access) // passing access struct to the request context to get it into controller method
+			request = jwtAuth.SetContextData(request, &access) // passing access struct to the request context to get it into controller method
 			next.ServeHTTP(response, request)
 		} else {
 			response.WriteHeader(http.StatusUnauthorized)
-			response.Write(ReturnMessage("Acesso negado"))
+			response.Write(jwtAuth.ReturnMessage("Acesso negado"))
 		}
 	})
 }
@@ -129,7 +129,7 @@ To get the access struct into your controller method just do it:
 
 ```golang
 func YourMethodController(response http.ResponseWriter, request *http.Request) {
-	a := GetContextData(request)
+	a := jwtAuth.GetContextData(request)
 }
 ```
 <br>
