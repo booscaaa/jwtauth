@@ -1,0 +1,6 @@
+teste: "opa"
+campos:
+  - campo: "ola"
+    tipo: "string"
+  - campo: "teste"
+    tipo: "bool"

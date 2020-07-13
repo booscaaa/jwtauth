@@ -22,16 +22,17 @@ type Auth struct {
 
 //Access .
 type Access struct {
-	ID       int64  `json:"id"`
-	Login    string `json:"login"`
-	Password string `json:"password"`
-	Email    string `json:"email"`
+	ID        int64  `json:"id"`
+	Login     string `json:"login"`
+	Password  string `json:"password"`
+	Email     string `json:"email"`
+	IDProfile string `json:"idProfile"`
 }
 
 //TokenAuth .
 type TokenAuth struct {
-	Access Access `json:"access,omitempty"`
-	Exp    int64  `json:"exp,omitempty"`
+	Access map[string]interface{} `json:"access,omitempty"`
+	Exp    int64                  `json:"exp,omitempty"`
 	jwt.StandardClaims
 }
 
