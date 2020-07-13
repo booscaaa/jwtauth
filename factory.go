@@ -9,13 +9,27 @@ import (
 )
 
 func GetConnection() *sql.DB {
-	DBHost := os.Getenv("DB_HOST")
-	DBUser := os.Getenv("DB_USER")
-	DBPassword := os.Getenv("DB_PASSWORD")
-	DBName := os.Getenv("DB_NAME")
+	dbHost := os.Getenv("DB_HOST")
+	dbUser := os.Getenv("DB_USER")
+	bdPassword := os.Getenv("DB_PASSWORD")
+	dbName := os.Getenv("DB_NAME")
 
 	dbinfo := fmt.Sprintf("host=%s user=%s password=%s dbname=%s",
-		DBHost, DBUser, DBPassword, DBName)
+		dbHost, dbUser, bdPassword, dbName)
+
+	db, err := sql.Open("postgres", dbinfo)
+	checkErr(err)
+	return db
+}
+
+func GetConnectionSchema(schema string) *sql.DB {
+	dbHost := os.Getenv("DB_HOST")
+	dbUser := os.Getenv("DB_USER")
+	dbPassword := os.Getenv("DB_PASSWORD")
+	dbName := os.Getenv("DB_NAME")
+
+	dbinfo := fmt.Sprintf("host=%s user=%s password=%s dbname=%s search_path=%s",
+		dbHost, dbUser, dbPassword, dbName, schema)
 
 	db, err := sql.Open("postgres", dbinfo)
 	checkErr(err)
