@@ -22,11 +22,10 @@ type Auth struct {
 
 //Access .
 type Access struct {
-	ID        int64  `json:"id"`
-	Login     string `json:"login"`
-	Password  string `json:"password"`
-	Email     string `json:"email"`
-	IDProfile string `json:"idProfile"`
+	ID       int64  `json:"id"`
+	Login    string `json:"login"`
+	Password string `json:"password"`
+	Email    string `json:"email"`
 }
 
 //TokenAuth .
