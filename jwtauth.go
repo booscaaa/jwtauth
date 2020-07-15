@@ -30,8 +30,8 @@ type Access struct {
 
 //TokenAuth .
 type TokenAuth struct {
-	Access map[string]interface{} `json:"access,omitempty"`
-	Exp    int64                  `json:"exp,omitempty"`
+	Access Access `json:"access,omitempty"`
+	Exp    int64  `json:"exp,omitempty"`
 	jwt.StandardClaims
 }
 

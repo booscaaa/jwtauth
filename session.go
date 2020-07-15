@@ -135,14 +135,10 @@ func SessionCreate(access Access, writer http.ResponseWriter) {
 		writer.Write(ReturnMessage("Acesso negado!"))
 		return
 	}
-	var database map[string]interface{}
-	database = make(map[string]interface{})
-
-	database["teste"] = session.Access
 
 	// caso tenha cria o token
 	tokenAuth := TokenAuth{
-		Access: database,
+		Access: session.Access,
 		Exp:    time.Now().Add(time.Second * 40).Unix(),
 	}
 
@@ -317,14 +313,10 @@ func SessionRefresh(bearToken string, writer http.ResponseWriter) {
 		}
 
 		// cria um novo token com nova data e expiração
-		var database map[string]interface{}
-		database = make(map[string]interface{})
-
-		database["teste"] = session.Access
 
 		// caso tenha cria o token
 		tokenAuth := TokenAuth{
-			Access: database,
+			Access: session.Access,
 			Exp:    time.Now().Add(time.Second * 40).Unix(),
 		}
 
