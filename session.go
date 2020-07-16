@@ -70,6 +70,8 @@ func structScan(rows *sql.Rows, model interface{}) error {
 						v.Field(i).SetString(b2s(item.([]uint8)))
 					case reflect.Float32, reflect.Float64:
 						v.Field(i).SetFloat(item.(float64))
+					case reflect.Int, reflect.Int32, reflect.Int64:
+						v.Field(i).SetInt(item.(int64))
 					case reflect.Ptr:
 						if reflect.ValueOf(item).Kind() == reflect.Bool {
 							itemBool := item.(bool)
