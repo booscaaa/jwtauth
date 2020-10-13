@@ -66,7 +66,7 @@ Import lib
 
 ```golang
 import (
-    . "github.com/booscaaa/jwtauth"
+	"github.com/booscaaa/jwtauth"
 )
 ```
 <br>
@@ -78,7 +78,7 @@ func Create(writer http.ResponseWriter, r *http.Request) {
 	if r.Method == "OPTIONS" {
 		writer.WriteHeader(http.StatusOK)
 	} else {
-		var access Access
+		var access jwtauth.Access
 		if err := json.NewDecoder(r.Body).Decode(&access); err != nil {
 			writer.WriteHeader(http.StatusInternalServerError)
 			writer.Write([]byte("500 - Something bad happened!"))

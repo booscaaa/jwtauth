@@ -3,7 +3,6 @@ package jwtauth
 import (
 	"database/sql"
 	"encoding/json"
-	"fmt"
 	"net/http"
 	"os"
 	"strings"
@@ -126,8 +125,6 @@ func SessionCreate(access Access, writer http.ResponseWriter) {
 					return
 				}
 
-				fmt.Println(session.Access.ID)
-
 				_, err = stmt.Exec(
 					session.Auth.Token,
 					session.Access.ID,
@@ -155,8 +152,6 @@ func SessionCreate(access Access, writer http.ResponseWriter) {
 					writer.Write(e.ReturnError())
 					return
 				}
-
-				fmt.Println(session.Access.ID)
 
 				_, err = stmt.Exec(
 					session.Auth.Token,
