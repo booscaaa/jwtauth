@@ -25,6 +25,6 @@ func main() {
 	}
 
 	r := Routes()
-	fmt.Println("5000")
+	fmt.Println("8080")
 	fmt.Println(http.ListenAndServe(fmt.Sprintf(":%s", port), handlers.CompressHandler(r)))
 }

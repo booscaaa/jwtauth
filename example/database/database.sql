@@ -19,3 +19,5 @@ CREATE TABLE auth (
     CONSTRAINT access_id_fk
 	FOREIGN KEY (access_id) REFERENCES access (id)
 );
+
+INSERT INTO access (login, password, email) VALUES ('user_test', crypt('test', gen_salt('bf', 10)), 'email@test');

@@ -1,4 +1,5 @@
-
+github.com/booscaaa/jwtauth v1.0.6 h1:L0N0mhBmYhd2mW6fiJVVB2wufAugJ2H2fpCUOATWs/c=
+github.com/booscaaa/jwtauth v1.0.6/go.mod h1:Dvq0fHAod/1mrntbrcaK0JgrpmOyFcAnVnlokjI/eEA=
 github.com/dgrijalva/jwt-go v3.2.0+incompatible h1:7qlOGliEKZXTDg6OTjfoBKDXWrumCAMpl/TFQ4/5kLM=
 github.com/dgrijalva/jwt-go v3.2.0+incompatible/go.mod h1:E3ru+11k8xSBh+hMPgOLZmtrrCbhqsmaPHjLKYnJCaQ=
 github.com/gorilla/handlers v1.4.2 h1:0QniY0USkHQ1RGCLfKxeNHK9bkDHGRYGNDFBCS+YARg=
