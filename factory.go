@@ -14,7 +14,7 @@ func GetConnection() *sql.DB {
 	DBPassword := os.Getenv("DB_PASSWORD")
 	DBName := os.Getenv("DB_NAME")
 
-	dbinfo := fmt.Sprintf("host=%s user=%s password=%s dbname=%s",
+	dbinfo := fmt.Sprintf("host=%s user=%s password=%s dbname=%s sslmode=disable",
 		DBHost, DBUser, DBPassword, DBName)
 
 	db, err := sql.Open("postgres", dbinfo)
